@@ -46,6 +46,7 @@ public class DoctorController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
     //Change this method and filter by city also
     @GetMapping("/specialization/{specialization_id}")
     @Secured({"ROLE_PATIENT", "ROLE_DOCTOR", "ROLE_ADMIN"})
