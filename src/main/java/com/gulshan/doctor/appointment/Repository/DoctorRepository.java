@@ -78,4 +78,5 @@ public interface DoctorRepository extends JpaRepository<Doctor,Long> {
     List<DoctorDetailsProjection> findAllBySpecialization_SpecializationId(@Param("specialization_id") Long specializationId);
 
     Optional<Doctor> findByUser_Id(Long userId);
+
 }

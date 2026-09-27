@@ -58,6 +58,13 @@ public class GlobalExceptionHandler {
         return  new ResponseEntity<>(apiError,HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ResourceCreationException.class)
+    public ResponseEntity<ApiError> handleResourceCreationException(ResourceCreationException ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR,null);
+        return new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 
 
 

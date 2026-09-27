@@ -2,6 +2,7 @@ package com.gulshan.doctor.appointment.Service.Interface;
 
 
 
+import com.gulshan.doctor.appointment.Entity.Doctor;
 import com.gulshan.doctor.appointment.RequestDTO.DoctorCreateRequestDto;
 import com.gulshan.doctor.appointment.RequestDTO.DoctorUpdateRequestDto;
 import com.gulshan.doctor.appointment.ResposeDTO.DoctorCreateResponseDto;
@@ -16,6 +17,9 @@ public interface DoctorServiceInterface {
 
     DoctorResponseDto getDoctorByUserId(Long userId);
 
+    Doctor getDoctorEntityByUserId(Long userId);
+
+//    Doctor getDoctorEntityByDoctorId(Long doctorId);
 
     List<DoctorResponseDto> getAllDoctorsBySpecializationId(Long specializationId);
 

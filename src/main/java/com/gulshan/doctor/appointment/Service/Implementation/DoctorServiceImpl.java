@@ -76,6 +76,25 @@ public class DoctorServiceImpl implements DoctorServiceInterface {
     }
 
     @Override
+    public Doctor getDoctorEntityByUserId(Long userId) {
+        Doctor doctor = doctorRepository
+                .findByUser_Id(userId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Doctor not found"));
+        return doctor;
+    }
+
+//    @Override
+//    public Doctor getDoctorEntityByDoctorId(Long doctorId) {
+//        Doctor doctor = doctorRepository
+//                .findById(doctorId)
+//                .orElseThrow(() ->
+//                        new ResourceNotFoundException("Doctor not found"));
+//        return doctor;
+//    }
+
+
+    @Override
     public List<DoctorResponseDto> getAllDoctorsBySpecializationId(Long specializationId) {
         List<DoctorDetailsProjection> doctorDetailsProjectionList = doctorRepository.findAllBySpecialization_SpecializationId(specializationId);
         List<DoctorResponseDto> doctorResponseDtoList = doctorDetailsProjectionList.stream()
@@ -97,7 +116,7 @@ public class DoctorServiceImpl implements DoctorServiceInterface {
         Doctor doctor = doctorRepository
                 .findByUser_Id(doctorUpdateRequestDto.getUserId())
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Patient not found"));
+                        new ResourceNotFoundException("Doctor not found"));
 
         user.setName(doctorUpdateRequestDto.getName());
         user.setEmail(doctorUpdateRequestDto.getEmail());

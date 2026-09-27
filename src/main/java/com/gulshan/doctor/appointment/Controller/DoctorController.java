@@ -40,7 +40,7 @@ public class DoctorController {
 
     @GetMapping("/{user_id}")
     @Secured({"ROLE_PATIENT", "ROLE_DOCTOR", "ROLE_ADMIN"})
-    public ResponseEntity<ApiResponseDto<DoctorResponseDto>> getDoctorUserId(@PathVariable Long user_id){
+    public ResponseEntity<ApiResponseDto<DoctorResponseDto>> getDoctorByUserId(@PathVariable Long user_id){
         DoctorResponseDto doctorResponseDto = doctorServiceInterface.getDoctorByUserId(user_id);
         ApiResponseDto<DoctorResponseDto> response =new ApiResponseDto<>("Doctor details found successfully.",doctorResponseDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
