@@ -64,7 +64,31 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(UnAuthorisedException.class)
+    public ResponseEntity<ApiError> handleUnAuthorisedException(UnAuthorisedException ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(), HttpStatus.UNAUTHORIZED,null);
+        return new ResponseEntity<>(apiError,HttpStatus.UNAUTHORIZED);
+    }
 
+
+    @ExceptionHandler(InvalidAppointmentException.class)
+    public ResponseEntity<ApiError> handleInvalidAppointmentException(InvalidAppointmentException ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST,null);
+        return new ResponseEntity<>(apiError,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidPaymentException.class)
+    public ResponseEntity<ApiError> handleInvalidPaymentException(InvalidPaymentException ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST,null);
+        return new ResponseEntity<>(apiError,HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<ApiError> handlePaymentException(PaymentException ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(), HttpStatus.BAD_GATEWAY,null);
+        return new ResponseEntity<>(apiError,HttpStatus.BAD_GATEWAY);
+    }
 
 
 

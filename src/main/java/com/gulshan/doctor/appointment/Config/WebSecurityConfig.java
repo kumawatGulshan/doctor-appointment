@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     private final JwtFilter jwtFilter;
     private final OAuth2Handler oAuth2Handler;
     private static final String[] publicRoutes =
-            {"/auth/**","/home.html"};
+            {"/auth/**","/home.html","/payment/webhook"};
 
 
     @Bean

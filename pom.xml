@@ -105,6 +105,13 @@
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- Source: https://mvnrepository.com/artifact/com.stripe/stripe-java -->
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>33.4.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
