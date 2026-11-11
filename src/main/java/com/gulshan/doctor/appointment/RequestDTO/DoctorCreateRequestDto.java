@@ -34,4 +34,8 @@ public class DoctorCreateRequestDto {
     @Positive(message = "Average consultation time must be greater than 0")
     @NotNull(message = "Average consultation time is required(In minutes)")
     private Integer avgConsultationTime;
+
+    private Boolean physicalConsultationEnabled = true;
+
+    private Boolean videoConsultationEnabled = false;
 }

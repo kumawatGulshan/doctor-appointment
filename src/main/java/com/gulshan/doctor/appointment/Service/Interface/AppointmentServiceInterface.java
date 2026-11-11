@@ -4,6 +4,7 @@ import com.gulshan.doctor.appointment.RequestDTO.AppointmentCreateRequestDto;
 import com.gulshan.doctor.appointment.RequestDTO.ScheduledAppointmentRequestDto;
 import com.gulshan.doctor.appointment.ResposeDTO.AppointmentCancelResponseDto;
 import com.gulshan.doctor.appointment.ResposeDTO.AppointmentCreateResponseDto;
+import com.gulshan.doctor.appointment.ResposeDTO.AppointmentStatusResponseDto;
 import com.gulshan.doctor.appointment.ResposeDTO.ScheduledAppointmentResponseDto;
 import jakarta.validation.Valid;
 
@@ -18,5 +19,14 @@ public interface AppointmentServiceInterface {
     AppointmentCancelResponseDto cancelAppointment(Long appointmentId);
 
 
-    List<ScheduledAppointmentResponseDto> scheduledAppointment(LocalDate date, LocalTime startTime, LocalTime endTime);
+    List<ScheduledAppointmentResponseDto> scheduledAppointment(
+            Long clinicId,
+            LocalDate date,
+            LocalTime startTime,
+            LocalTime endTime
+    );
+
+    AppointmentStatusResponseDto startPhysicalConsultation(Long appointmentId);
+
+    AppointmentStatusResponseDto endPhysicalConsultation(Long appointmentId);
 }

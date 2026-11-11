@@ -37,5 +37,8 @@ public class DoctorResponseDto {
 
         // Specialization
         private String specializationName;
+
+        private Boolean physicalConsultationEnabled;
+        private Boolean videoConsultationEnabled;
     }
 

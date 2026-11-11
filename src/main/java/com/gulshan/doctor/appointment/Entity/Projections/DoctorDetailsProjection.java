@@ -31,4 +31,7 @@ public interface DoctorDetailsProjection {
     LocalDate getPracticeStartDate();
     String getImageName();
     Integer getAvgConsultationTime();
+
+    Boolean getPhysicalConsultationEnabled();
+    Boolean getVideoConsultationEnabled();
 }

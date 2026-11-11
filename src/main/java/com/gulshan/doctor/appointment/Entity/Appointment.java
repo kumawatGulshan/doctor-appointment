@@ -2,6 +2,7 @@ package com.gulshan.doctor.appointment.Entity;
 
 
 import com.gulshan.doctor.appointment.Entity.Enums.AppointmentStatus;
+import com.gulshan.doctor.appointment.Entity.Enums.AppointmentType;
 import com.gulshan.doctor.appointment.Entity.Enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,10 +41,12 @@ public class Appointment {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private AppointmentStatus appointmentStatus = AppointmentStatus.PENDING;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
     @Column(unique = true)
@@ -51,4 +54,13 @@ public class Appointment {
 
     @Column(name = "hold_expires_at")
     private LocalDateTime holdExpiresAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id", nullable = true)
+    private Clinic clinic;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private AppointmentType appointmentType = AppointmentType.PHYSICAL;
 }

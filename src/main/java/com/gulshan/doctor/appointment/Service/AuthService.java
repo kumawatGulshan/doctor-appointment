@@ -37,13 +37,20 @@ public class AuthService {
         }
         User userToBeCreated = modelMapper.map(signUpRequestDTO,User.class);
         userToBeCreated.setPassword(passwordEncoder.encode(userToBeCreated.getPassword()));
-        User createdUser =  userRepository.save(userToBeCreated);
+        try {
+            User createdUser = userRepository.save(userToBeCreated);
+            SignUpResponseDTO signUpResponseDTO = new SignUpResponseDTO();
+            signUpResponseDTO.setMassage("user created successfully.");
+            signUpResponseDTO.setEmail(createdUser.getEmail());
+            signUpResponseDTO.setName(createdUser.getName());
+            return signUpResponseDTO;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Failed to create user: " + e.getMessage(), e);
+        }
 
-        SignUpResponseDTO signUpResponseDTO = new SignUpResponseDTO();
-        signUpResponseDTO.setMassage("user created successfully.");
-        signUpResponseDTO.setEmail(createdUser.getEmail());
-        signUpResponseDTO.setName(createdUser.getName());
-        return signUpResponseDTO;
+
+
     }
 
 

@@ -76,4 +76,11 @@ public class DoctorUpdateRequestDto {
         @NotNull(message = "Average consultation time is required (in minutes)")
         @Positive(message = "Average consultation time must be greater than 0")
         private Integer avgConsultationTime;
+
+
+        @NotNull(message = "Physical consultation preference is required")
+        private Boolean physicalConsultationEnabled;
+
+        @NotNull(message = "Video consultation preference is required")
+        private Boolean videoConsultationEnabled;
 }

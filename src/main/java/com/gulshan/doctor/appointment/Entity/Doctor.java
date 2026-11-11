@@ -42,4 +42,10 @@ public class Doctor {
 
     @Column(nullable = false)
     private boolean isActivated = false;
+
+    @Column(nullable = false)
+    private Boolean physicalConsultationEnabled = true;
+
+    @Column(nullable = false)
+    private Boolean videoConsultationEnabled = false;
 }

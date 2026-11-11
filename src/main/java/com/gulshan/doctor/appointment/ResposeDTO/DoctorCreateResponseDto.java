@@ -22,4 +22,8 @@ public class DoctorCreateResponseDto {
     private String imageName;
 
     private Integer avgConsultationTime;
+
+    private Boolean physicalConsultationEnabled;
+
+    private Boolean videoConsultationEnabled;
 }

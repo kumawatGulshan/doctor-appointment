@@ -1,6 +1,5 @@
 package com.gulshan.doctor.appointment.Entity.Projections;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -19,4 +18,6 @@ public interface ScheduledAppointmentProjection {
     String getPatientName();
 
     String getMobNumber();
+
+    String getAppointmentType();
 }

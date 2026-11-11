@@ -38,20 +38,68 @@ public class AppointmentController {
     }
 
     @GetMapping("/scheduled")
-    @PreAuthorize("@appointmentSecurity.canCurrentUserAccess(#userId) AND hasRole('DOCTOR') OR hasRole('ADMIN')")
-    public ResponseEntity<ApiResponseDto<List<ScheduledAppointmentResponseDto>>> getAllScheduledAppointment
-            (@RequestParam Long userId, @RequestParam LocalDate date,
-             @RequestParam LocalTime startTime, @RequestParam LocalTime endTime) {
+    @PreAuthorize("(hasRole('DOCTOR') AND @appointmentSecurity.canCurrentUserAccess(#userId)) OR hasRole('ADMIN')")
+    public ResponseEntity<ApiResponseDto<List<ScheduledAppointmentResponseDto>>>
+    getAllScheduledAppointment(
+            @RequestParam Long userId,
+            @RequestParam(required = false) Long clinicId,
+            @RequestParam LocalDate date,
+            @RequestParam LocalTime startTime,
+            @RequestParam LocalTime endTime) {
 
-        List<ScheduledAppointmentResponseDto> appointments = appointmentServiceInterface
-                .scheduledAppointment(date,startTime,endTime);
+        List<ScheduledAppointmentResponseDto> appointments =
+                appointmentServiceInterface.scheduledAppointment(
+                        clinicId, date, startTime, endTime
+                );
 
         ApiResponseDto<List<ScheduledAppointmentResponseDto>> response =
-                new ApiResponseDto<>("Scheduled appointments fetched successfully.", appointments);
+                new ApiResponseDto<>(
+                        "Scheduled appointments fetched successfully.",
+                        appointments
+                );
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(response);
+    }
+
+    // Doctor starts a physical consultation.
+    @PatchMapping("/{appointmentId}/start")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<ApiResponseDto<AppointmentStatusResponseDto>>
+    startPhysicalConsultation(
+            @PathVariable Long appointmentId) {
+
+        AppointmentStatusResponseDto response =
+                appointmentServiceInterface.startPhysicalConsultation(
+                        appointmentId
+                );
+
+        return ResponseEntity.ok(
+                new ApiResponseDto<>(
+                        "Physical consultation started successfully",
+                        response
+                )
+        );
     }
 
 
+    // Doctor ends a physical consultation.
+    @PatchMapping("/{appointmentId}/end")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<ApiResponseDto<AppointmentStatusResponseDto>>
+    endPhysicalConsultation(
+            @PathVariable Long appointmentId) {
+
+        AppointmentStatusResponseDto response =
+                appointmentServiceInterface.endPhysicalConsultation(
+                        appointmentId
+                );
+
+        return ResponseEntity.ok(
+                new ApiResponseDto<>(
+                        "Physical consultation completed successfully",
+                        response
+                )
+        );
+    }
 
 }

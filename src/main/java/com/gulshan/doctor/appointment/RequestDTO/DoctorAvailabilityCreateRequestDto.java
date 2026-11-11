@@ -21,4 +21,6 @@ public class DoctorAvailabilityCreateRequestDto {
 
     @NotNull(message = "End time is required")
     private LocalTime endTime;
+
+    private Long clinicId;
 }

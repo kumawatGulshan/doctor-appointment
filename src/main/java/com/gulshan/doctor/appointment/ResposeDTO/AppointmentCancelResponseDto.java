@@ -1,6 +1,7 @@
 package com.gulshan.doctor.appointment.ResposeDTO;
 
 import com.gulshan.doctor.appointment.Entity.Enums.AppointmentStatus;
+import com.gulshan.doctor.appointment.Entity.Enums.AppointmentType;
 import com.gulshan.doctor.appointment.Entity.Enums.PaymentStatus;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.time.LocalTime;
 
 @Data
 public class AppointmentCancelResponseDto {
+
     private Long appointmentId;
 
     private Long doctorId;
@@ -22,4 +24,5 @@ public class AppointmentCancelResponseDto {
 
     private AppointmentStatus appointmentStatus;
     private PaymentStatus paymentStatus;
+    private AppointmentType appointmentType;
 }

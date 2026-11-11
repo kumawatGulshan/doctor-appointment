@@ -1,6 +1,7 @@
 package com.gulshan.doctor.appointment.ResposeDTO;
 
 import com.gulshan.doctor.appointment.Entity.Enums.AppointmentStatus;
+import com.gulshan.doctor.appointment.Entity.Enums.AppointmentType;
 import com.gulshan.doctor.appointment.Entity.Enums.PaymentStatus;
 import lombok.Data;
 
@@ -23,4 +24,5 @@ public class AppointmentCreateResponseDto {
 
     private AppointmentStatus appointmentStatus;
     private PaymentStatus paymentStatus;
+    private AppointmentType appointmentType;
 }

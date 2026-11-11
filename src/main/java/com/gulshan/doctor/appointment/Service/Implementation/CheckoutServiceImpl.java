@@ -1,8 +1,11 @@
 package com.gulshan.doctor.appointment.Service.Implementation;
 
 import com.gulshan.doctor.appointment.Entity.Appointment;
+import com.gulshan.doctor.appointment.Entity.DoctorClinic;
 import com.gulshan.doctor.appointment.Entity.User;
+import com.gulshan.doctor.appointment.Exceptions.ResourceNotFoundException;
 import com.gulshan.doctor.appointment.Repository.AppointmentRepository;
+import com.gulshan.doctor.appointment.Repository.DoctorClinicRepository;
 import com.gulshan.doctor.appointment.Service.Interface.CheckoutServiceInterface;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
@@ -22,6 +25,7 @@ import java.math.BigDecimal;
 public class CheckoutServiceImpl implements CheckoutServiceInterface {
 
     private final AppointmentRepository appointmentRepository;
+    private final DoctorClinicRepository doctorClinicRepository;
 
 
     @Override
@@ -38,6 +42,20 @@ public class CheckoutServiceImpl implements CheckoutServiceInterface {
 
             Customer customer = Customer.create(customerParams);
 
+            BigDecimal consultationFee = appointment.getDoctor().getConsultationFee();
+
+            if (appointment.getClinic() != null) {
+
+                Long doctorId = appointment.getDoctor().getDoctorId();
+                Long clinicId = appointment.getClinic().getId();
+
+                DoctorClinic doctorClinic = doctorClinicRepository.findByDoctor_DoctorIdAndClinic_Id(doctorId, clinicId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Doctor clinic association not found"));
+
+                consultationFee = doctorClinic.getConsultationFee();
+            }
+
+
             SessionCreateParams params = SessionCreateParams.builder()
                     .setMode(SessionCreateParams.Mode.PAYMENT)
                     .setBillingAddressCollection(SessionCreateParams.BillingAddressCollection.REQUIRED)
@@ -50,7 +68,7 @@ public class CheckoutServiceImpl implements CheckoutServiceInterface {
                                     .setPriceData(
                                             SessionCreateParams.LineItem.PriceData.builder()
                                                     .setCurrency("inr")
-                                                    .setUnitAmount(appointment.getDoctor().getConsultationFee().multiply(BigDecimal.valueOf(100)).longValue())
+                                                    .setUnitAmount(consultationFee.multiply(BigDecimal.valueOf(100)).longValue())
                                                     .setProductData(
                                                             SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                                                     .setName(appointment.getDoctor().getUser().getName() +", "+appointment.getDoctor().getSpecialization().getSpecializationName())

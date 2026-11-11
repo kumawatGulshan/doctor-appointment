@@ -92,4 +92,30 @@ public class GlobalExceptionHandler {
 
 
 
+    @ExceptionHandler(InvalidApprovalStatusException .class)
+    public ResponseEntity<ApiError> handleInvalidApprovalStatusException (InvalidApprovalStatusException  ex){
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST,null);
+        return new ResponseEntity<>(apiError,HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(InvalidDoctorClinicActionException.class)
+    public ResponseEntity<ApiError> handleInvalidDoctorClinicActionException(InvalidDoctorClinicActionException ex) {
+        ApiError apiError = new ApiError(ex.getLocalizedMessage(), HttpStatus.CONFLICT, null);
+        return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(VideoConsultationException.class)
+    public ResponseEntity<ApiError> handleVideoConsultationException(
+            VideoConsultationException ex) {
+
+        ApiError apiError = new ApiError(
+                ex.getMessage(),
+                ex.getStatus(),
+                null
+        );
+
+        return new ResponseEntity<>(apiError, ex.getStatus());
+    }
+
 }

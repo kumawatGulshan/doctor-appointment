@@ -14,9 +14,10 @@ import java.time.LocalTime;
         name = "doctor_availability",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_doctor_availability",
+                        name = "uk_doctor_clinic_availability",
                         columnNames = {
                                 "doctor_id",
+                                "clinic_id",
                                 "day_of_week",
                                 "start_time",
                                 "end_time"
@@ -43,4 +44,8 @@ public class DoctorAvailability {
 
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id", nullable = true)
+    private Clinic clinic;
 }

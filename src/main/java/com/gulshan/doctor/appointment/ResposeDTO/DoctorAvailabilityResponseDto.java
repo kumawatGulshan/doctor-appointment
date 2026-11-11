@@ -19,4 +19,5 @@ public class DoctorAvailabilityResponseDto {
     private DayOfWeek dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;
+    private Long clinicId;
 }
